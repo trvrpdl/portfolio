@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trevor Padoll — Writer & Editor</title>
+
+    <!-- Font: Geist (as provided) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+      /* Geist utility from provided snippet */
+      .geist {
+        font-family: "Geist", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .geist-mono {   
+        font-family: "Geist Mono", monospace;   
+        font-optical-sizing: auto;   
+        font-weight: 400;   
+        font-style: normal; 
+      }
+      
+      :root {
+        --container: clamp(320px, 90vw, 1120px);
+        --text: #262626;
+        --muted: #6b6b6b;
+        --border: #e8e8e8;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 40px;
+      }
+
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        background: #FFFFFD;
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Add loading state */
+      .loading {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+      }
+
+      .loaded {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Base reveal hidden state */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease;
+      }
+
+      /* Active state once in view */
+      .reveal-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* Optional direction variants */
+      .reveal-left { transform: translateX(-40px); }
+      .reveal-right { transform: translateX(40px); }
+
+
+      .container {
+        width: min(var(--container), 100%);
+        margin-inline: auto;
+        padding-inline: clamp(16px, 4vw, 24px);
+      }
+
+      /* Top navigation aligned to right */
+      header {
+        padding-top: clamp(20px, 6vw, 40px);
+        padding-bottom: clamp(8px, 1.5vw, 16px);
+      }
+      .topnav {
+        display: flex;
+        justify-content: flex-end;
+        gap: clamp(18px, 4vw, 36px);
+        font-weight: 500;
+      }
+      .topnav a {
+        color: var(--text);
+        text-decoration: none;
+        opacity: 0.9;
+      }
+      .topnav a:hover { opacity: 1; text-decoration: underline; }
+
+      main { padding-top: clamp(12px, 2vw, 16px); }
+
+      /* Headline block */
+      .headline {
+        display: block;
+        line-height: 1.2;
+        font-weight: 300;
+        font-size: clamp(18px, 2.1vw, 22px);
+        white-space: normal;
+      }
+      .headline .name {
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        line-height: 1;
+        font-size: clamp(40px, 6vw, 95px);
+        white-space: nowrap;
+        margin-right: 0.1em;
+      }
+      .headline .lead {
+        font-weight: 300;
+        font-size: clamp(16px, 2vw, 25px);
+        line-height: 1.4;
+        color: var(--text);
+      }
+
+      .hero {
+        min-height: 100vh;
+      }
+
+      .edit-section,
+      .case-section,
+      .testimonials {
+        padding: clamp(60px, 8vw, 120px) 0;
+      }
+
+      /* Services + portrait */
+      .below-grid {
+        display: grid;
+        grid-template-columns: 1fr minmax(260px, 360px);
+        gap: clamp(24px, 4vw, 48px);
+        align-items: start;
+        margin-top: clamp(26px, 4vw, 40px);
+      }
+
+      .services {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+        gap: clamp(16px, 5vw, 60px);
+      }
+
+      .services h3 {
+        position: absolute;
+        width: 1px; height: 1px; overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap; clip-path: inset(50%);
+        border: 0; padding: 0; margin: -1px;
+      }
+
+      .service-col ul {
+        list-style: none;
+        font-size: clamp(5px, 2vh, 10px);
+        margin-top: 80px;
+        margin-left: 40px;
+        padding: 0;
+      }
+      .service-col li {
+        font-size: clamp(14px, 2vw, 16px);
+        line-height: 1.6;
+        color: #2a2a2a;
+        transition: transform 0.2s ease;
+        position: relative;
+        padding-left: 0;
+      }
+
+      .service-col li:hover {
+        transform: translateX(8px);
+      }
+
+      .service-col li::before {
+        content: "→";
+        position: absolute;
+        left: -20px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .service-col li:hover::before {
+        opacity: 1;
+      }
+
+      .examples-link {
+        display: inline-block;
+        color: var(--muted);
+        text-decoration: underline;
+        margin-left: 40px;
+        font-size: 14px;
+      }
+      .examples-link:hover { color: #4a4a4a; }
+
+      .portrait {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 60px;
+        overflow: hidden;
+        background: #f5f5f5;
+      }
+      .portrait img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 5 / 5;
+        object-fit: cover;
+        transition: all 0.3s ease;
+        filter: grayscale(100%);
+      }
+
+      .portrait img:hover {
+        transform: scale(1.02);
+      }
+
+      .cube-wrapper {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        perspective: 800px;   /* creates 3D depth */
+        margin-top: 40px;
+
+      }
+
+      .cube {
+        position: relative;
+        width: 80px;   /* cube size */
+        height: 80px;
+        transform-style: preserve-3d;
+        animation: spin 6s linear infinite;
+      }
+
+      .cube .face {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(145deg, rgba(30,30,30,0.7), rgba(0,0,0,0.4));
+        opacity: 0.9;
+        border: 1px solid rgba(255,255,255,0.2);
+        box-shadow: inset 0 0 12px rgba(255,255,255,0.1);
+      }
+
+      .cube .face::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255,255,255, 0.25));
+      }
+
+      /* Positioning each face */
+      .cube .front  { transform: rotateY(0deg) translateZ(40px); }
+      .cube .back   { transform: rotateY(180deg) translateZ(40px); }
+      .cube .right  { transform: rotateY(90deg) translateZ(40px); }
+      .cube .left   { transform: rotateY(-90deg) translateZ(40px); }
+      .cube .top    { transform: rotateX(90deg) translateZ(40px); }
+      .cube .bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+/* Spin animation */
+@keyframes spin {
+  0%   { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+
+      /* Editing section */
+
+      .edit-section {
+        padding: clamp(24px, 6vw, 56px) 0;
+        min-height: 100vh;
+        max-width: 80vw;
+        margin: 0 auto; 
+      }
+
+      .edit-heading {
+        margin: 0 0 20px 0;
+        font-size: clamp(22px, 3vw, 32px);
+        font-weight: 800;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 8px;
+        text-align: left;
+      }
+
+      .edit-services {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(10px, 4vw, 48px);
+        align-items: start;
+        max-width: 80vw;
+        margin: 0 auto;
+      }
+
+      .edit-col {
+        text-align: center;
+      }
+
+      .edit-subheading {
+        font-size: clamp(18px, 1.6vw, 32px);
+        font-weight: 600;
+        color:#262626;
+        margin-bottom: 8px;
+      }
+
+      .edit-description {
+        font-weight:300;
+        font-size: 18px;
+        color:#262626;
+      }
+
+      .edit-desc2 {
+        font-weight:400;
+        font-size: 16px;
+        color: var(--muted);
+      }
+
+      .four-col-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: clamp(16px, 4vw, 32px);
+        max-width: 80vw;
+        align-content: start; /* vertically align text and images */
+        margin-top: clamp(40px, 5vw, 64px);
+        margin: 60px auto;
+      }
+
+      .four-col-grid .text-col {
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--text);
+      }
+
+      .four-col-grid img {
+        width: 100%;
+        margin: 0px auto;
+        height: auto;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: #f5f5f5;
+      }
+
+      .col-pair {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        flex: 1 1 45%;
+      }
+      .col-text-col {
+        text-align: left;
+        margin-top: auto;
+        margin-left: 0px;
+      }
+
+      .col-image-col img {
+        width: 120%;
+        max-width: 200px;
+        height: auto;
+        border-radius: 16px;
+      }
+
+      .price-text {
+        margin-top:10vh;
+        grid-column: 1 / -1;
+        text-align: left;
+        width: 30vw;
+        max-width: 100vw;
+        font-size: small;
+        font-weight: 300;
+      }
+
+      .spacer-top { margin-top: clamp(18px, 3vw, 28px); }
+
+      .col-image-col {
+        display: block;
+      }
+
+      .col-image-col .edit-media {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 60px;
+        margin: 0 auto;
+      }
+
+      .col-image-col img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+        cursor: pointer;
+        margin: 0 auto;
+        justify-content: center;
+      }
+
+      .edit-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transform: scale(1.1);
+        max-width: none;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+        cursor: pointer;
+        margin: 0 auto;
+        justify-content: center;
+      }
+      /* Case section */
+      .case-section { 
+        padding: clamp(24px, 4vw, 56px) 0;
+        max-width: 80vw;
+        margin: 0 auto; 
+      }
+
+      .case-details {
+        margin-bottom: 40px;
+        text-align: right;
+        margin: 0 0 40px 0;
+        max-width: 80vw;
+      }
+      .case-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(10px, 4vw, 48px);
+        align-items: start;
+        margin: 0 auto;
+        max-width: 80vw;
+        min-height: 80vh;
+      }
+
+      .case-media {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: 60px;
+        overflow: hidden;
+        background: #f5f5f5;
+  
+      }
+
+      .edit-media {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: 60px;
+        overflow: hidden;
+        background: #f5f5f5;
+        aspect-ratio: 1 / 1;
+      }
+      .case-media img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 4;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.4s ease;
+      }
+
+      .edit-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 4 / 4;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.4s ease;
+      }
+
+      .case-media:hover img,
+      .edit-media:hover img {
+        transform: scale(1.05);
+      }
+
+      .case-media::after,
+      .edit-media::after {
+        content: "View Project";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 12px;
+        background: rgba(0.0,0,0,0.6);
+        color: #fff;
+        text-align: center;
+        font-size: 14px;
+        opacity: 0;
+        transform: translateY(100%);
+        transition: all 0.3s ease;
+      }
+
+      .case-media:hover::after,
+      .edit-media:hover::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .case-heading {
+        margin: 0 0 20px 0;
+        font-size: clamp(22px, 3vw, 32px);
+        font-weight: 800;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 8px;
+        text-align: right;
+      }
+      .case-meta { margin: 0 0 8px 0; color: var(--muted); font-size: 16px; text-align: right;}
+     
+      .case-discipline { 
+        margin: 0; 
+        font-size: 14px; 
+        color: #2b2b2b; 
+        letter-spacing: 0.02em;
+        line-height: 1.4; 
+        text-align: right;
+        max-width: 100%;
+      }
+
+      /* Lightbox styles */
+      .lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.9);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        flex-direction: row;
+      }
+      .lightbox img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      }
+      .lightbox .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: #fff;
+        font-size: 36px;
+        font-weight: bold;
+        cursor: pointer;
+        user-select: none;
+      }
+      .lightbox .close:hover { color: #ccc; }
+      .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 50px;
+        color: #fff;
+        padding: 12px;
+        user-select: none;
+      }
+      .prev {left: 30px;}
+      .next {right: 30px;}
+      .prev:hover, .next:hover {color: #ccc;}
+
+      /* Responsive */
+      @media (max-width: 760px) {
+        .hero {
+          margin-top: 10%;
+        }
+      
+        .below-grid { 
+          grid-template-columns: 1fr;
+          justify-items: center; 
+        }
+        
+        .services { 
+          grid-template-columns: repeat(2, minmax(120px, 1fr));
+          justify-items: center;
+          gap: 16px; 
+          margin: 0 auto;
+          margin-top: 10px; 
+        }
+
+        .service-col {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          }
+
+        .service-col ul {
+          margin-top: 18px;
+          margin-left: 0;
+          list-style: none;
+          justify-content: center;
+          margin-bottom: 0;
+          padding: 0;
+          text-align: center; 
+        }
+
+        .examples-link {
+          margin: 8px auto 20px;
+          display: block;
+          text-align: center;
+          font-size: 13px;
+        }
+
+        .portrait {
+          max-width: 80vw;
+          margin: 15% auto 0 auto;
+          display: block;
+          text-align: center;
+          order: -1
+        }
+
+        .portrait-img {
+          display: block;
+          margin: 0 auto; 
+          height: auto;
+        }
+
+        .headline .name { white-space: normal; }
+
+        .edit-services {
+          grid-template-columns: 1fr; /* stack vertically */
+          gap: 20px;
+        }
+
+        .four-col-grid {
+          grid-template-columns: 1fr;
+          gap: 20px; 
+          justify-items: center;
+        }
+
+        .four-col-grid img {
+          max-width: 80%;
+          grid-template-columns: 1fr;
+          justify-items: center;
+        }
+
+        .four-col-grid a {
+          display: inline-block;
+          text-align: left;
+          margin-top: 10px;
+        }
+
+        .price-text {
+          width: 100vw; 
+        }
+      }
+
+      .testimonials {
+        padding: 0 0 40px 0;
+        margin-top: -6vh;
+      }
+
+      .section-heading {
+        font-size: clamp(24px, 4vw, 36px);
+        font-size: clamp(22px, 3vw, 32px);
+        font-weight: 800;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 8px;
+        text-align: left;
+        margin-bottom: 48px;
+      }
+
+
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+
+      .testimonial-card {
+        padding: 32px;
+        background: transparent;
+        border-radius: 16px;
+        border: none;
+        box-shadow:none;
+      }
+
+
+      .testimonial-text {
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+
+
+      .testimonial-author {
+        font-weight: 600;
+        color: var(--text);
+      }
+      
+    </style>
+  </head>
+
+  <body class="geist">
+    <header>
+      <div class="container">
+        <nav class="topnav" aria-label="Primary">
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+      <div class="container">
+        <!-- Headline area -->
+        <h1 class="headline">
+          <span class="name">Trevor Padoll</span>
+          <span class="lead">is a freelance writer and editor based in Brooklyn <sup>(NY)</sup> specializing in content writing for brands and editing services for everyone else</span>
+        </h1>
+
+        <!-- Services and portrait -->
+        <div class="below-grid spacer-top">
+          <section class="services" aria-label="Services">
+            <h3>Services</h3>
+            <div class="service-col geist-mono">
+              <ul>
+                <li>Manuscripts</li>
+                <li>Dissertations</li>
+                <li>Reports</li>
+              </ul>
+              <a class="examples-link geist-mono" href="#edit-more">see more</a>
+            </div>
+            <div class="service-col geist-mono">
+              <ul>
+                <li>Newsletters</li>
+                <li>Blog Posts</li>
+                <li>Verbal Branding</li>
+              </ul>
+              <a class="examples-link geist-mono" href="#brand-more">see more</a>
+            </div>
+          </section>
+
+          <aside class="portrait" aria-label="Portrait">
+            <img src="img/IMG_3172.JPG" alt="Portrait placeholder." class="portrait-img" loading="lazy"/>
+          </aside>
+        </div>
+        </section>
+
+        <!-- Edit Section-->
+        <section class="edit-section" id="edit-more">
+          <h3 class="edit-heading">Editing Services</h3>
+          <div class="edit-services">
+            <div class="edit-col">
+              <p class="edit-subheading">Copyediting</p>
+              <p class="edit-description">revising your work to ensure that it is clear, error-free, gramatically correct and formatted consistently. adhering to preferred style guide or template.</p>
+            </div>
+            <div class="edit-col">
+              <p class="edit-subheading">Line Editing</p>
+              <p class="edit-description">a stylistic review of your manuscript with a focus on improving prose and clarity. ensuring reader-engagement through sentence structure, word choice, tone and pacing.</p>
+            </div>
+            <div class="edit-col">
+              <p class="edit-subheading">Proofing</p>
+              <p class="edit-description">a final review for quality control to catch any remaining typos, spelling errors or formatting mistakes.</p>
+            </div>
+          </div>
+
+          <section class="four-col-grid geist-mono">
+            <div class="col-image-col">
+              <div class="edit-media geist">
+              <img src="img/test-doc.png" alt="Placeholder Image 1" class="edit-img" onclick="openLightbox(0)" />
+              </div>
+            </div>
+            <div class="col-text-col">
+              <h3 class="edit-ex-head">Text Block 1</h3>
+              <p class="edit-desc2 geist-mono">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Placeholder text here.</p>
+            </div>
+
+            <div class="col-image-col">
+              <div class="edit-media geist">
+              <img src="img/test-doc.png" alt="Placeholder Image 2" class="edit-img" onclick="openLightbox(1)" />
+              </div>
+            </div>
+            <div class="col-text-col">
+              <h3 class="edit-ex-head">Text Block 2</h3>
+              <p class="edit-desc2 geist-mono">More placeholder text here. This is the fourth column of the grid.</p>
+            </div>
+
+            <div class="price-text">
+              <p class="price-description geist-mono">I follow the Editorial Freelancers Association rates to determine pricing. You can review them <a class="efa-link geist-mono" href="https://www.the-efa.org/rates/">here</a>.</p>
+            </div>
+          </section>
+        </section>
+
+
+
+        <!-- Case study -->
+        <section class="case-section" aria-label="Case Study" id="brand-more">
+            <div class="case-details">
+              <h3 class="case-heading">Content &amp; Creative</h3>
+              <p class="case-meta geist-mono">Mush Studios, 2020</p>
+              <p class="case-discipline geist-mono">verbal branding identity, product descriptions, brand ethos and mission statement</p>
+            </div>
+          <div class="case-grid">
+            <div class="case-media">
+              <img src="img/verbal-branding-img.png" alt="Project 1" onclick="openLightbox(2)" />
+            </div>
+            <div class="case-media">
+              <img src="img/8f68bf01-aa7b-44ea-ad03-ebd575d17758_rw_1920.png" alt="Project 2" onclick="openLightbox(3)" />
+            </div>
+            <div class="case-media">
+              <img src="img/f5129811-2187-49a2-acf7-552e536880eb_rw_1920.png" alt="Project 3" onclick="openLightbox(4)" />
+            </div>
+          </div>
+          
+          <!--Testimonial section-->
+          <section class="testimonials">
+            <div class="container">
+              <h3 class="section-heading">Client Testimonials</h3>
+              <div class="testimonial-grid">
+                <div class="testimonial-card">
+                  <p class="testimonial-text"><i>"Trevor's editing transformed my manuscript from good to publication-ready. His attention to detail and stylistic suggestions were invaluable."</i></p>
+                  <p class="testimonial-author geist-mono">— Sarah Chen, Author</p>
+                </div>
+                <div class="testimonial-card">
+                  <p class="testimonial-text"><i>"The brand voice Trevor developed for our startup perfectly captured our ethos and resonated with our target audience."</i></p>
+                  <p class="testimonial-author geist-mono">— Michael Torres, CEO</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Lightbox -->
+          <div id="lightbox" class="lightbox">
+            <span class="close" onclick="closeLightbox()">&times;</span>
+            <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+            <img id="lightbox-img" src="" alt="Full-size image" />
+            <span class="next" onclick="changeSlide(1)">&#10095;</span>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <script>
+      let currentIndex = 0;
+      let images; // global
+
+      window.onload = () => {
+        images = document.querySelectorAll('.case-media img, .four-col-grid img');
+      };
+
+        // Scroll reveal with Intersection Observer
+      document.addEventListener("DOMContentLoaded", () => {
+        const reveals = document.querySelectorAll(".reveal");
+
+      const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-visible");
+            observer.unobserve(entry.target); // reveal once
+          }
+         });
+        },
+        { threshold: 0.1 }
+      );
+
+       reveals.forEach(el => observer.observe(el));
+       });
+
+      function openLightbox(index) {
+        currentIndex = index;
+        document.getElementById("lightbox").style.display = "flex";
+        showImage(currentIndex);
+      }
+
+      function closeLightbox() {
+        document.getElementById("lightbox").style.display = "none";
+      }
+
+      function changeSlide(direction) {
+        currentIndex += direction;
+        if (currentIndex < 0) currentIndex = images.length - 1;
+        if (currentIndex >= images.length) currentIndex = 0;
+        showImage(currentIndex);
+      }
+
+      function showImage(index) {
+        const lightboxImg = document.getElementById("lightbox-img");
+        lightboxImg.src = images[index].src;
+      }
+
+      // Keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        if (document.getElementById("lightbox").style.display === "flex") {
+          if (e.key === "ArrowLeft") changeSlide(-1);
+          if (e.key === "ArrowRight") changeSlide(1);
+          if (e.key === "Escape") closeLightbox();
+        }
+      });
+    </script>
+  </body>
+</html>
