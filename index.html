@@ -100,7 +100,9 @@
       }
       .topnav a:hover { opacity: 1; text-decoration: underline; }
 
-      main { padding-top: clamp(12px, 2vw, 16px); }
+      main { 
+        padding-top: clamp(12px, 2vw, 16px);
+        margin: 0 auto; }
 
       /* Headline block */
       .headline {
@@ -123,6 +125,11 @@
         font-size: clamp(16px, 2vw, 25px);
         line-height: 1.4;
         color: var(--text);
+      }
+
+      .headline .sup-ny {
+        font-size: small;
+        font-weight:500;
       }
 
       .hero {
@@ -367,12 +374,24 @@
 
       .price-text {
         margin-top:10vh;
+        line-height: 1.5;
         grid-column: 1 / -1;
         text-align: left;
         width: 30vw;
         max-width: 100vw;
         font-size: small;
         font-weight: 300;
+      }
+
+      .price-descritpion {
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+      }
+
+      .efa-link {
+        display: inline;
+        line-height: inherit;
       }
 
       .spacer-top { margin-top: clamp(18px, 3vw, 28px); }
@@ -413,10 +432,10 @@
         margin: 0 auto;
         justify-content: center;
       }
-      /* Case section */
+      /* Creative section */
       .case-section { 
         padding: clamp(24px, 4vw, 56px) 0;
-        max-width: 80vw;
+        max-width: 90vw;
         margin: 0 auto; 
       }
 
@@ -510,9 +529,69 @@
         text-decoration: underline;
         text-decoration-thickness: 2px;
         text-underline-offset: 8px;
-        text-align: right;
+        text-align: left;
       }
-      .case-meta { margin: 0 0 8px 0; color: var(--muted); font-size: 16px; text-align: right;}
+
+      .creative-services {
+        width: 100%;
+      }
+
+      .creative-services .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .services-top-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        width: 100%;
+        max-width: 1200px;
+        margin-bottom: 0;
+        margin-top: 60px;
+      }
+
+      .services-bottom-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        width: 66.666%;
+        justify-content: center;
+        margin: 0 auto 200px auto;
+      }
+
+      .creative-col {
+        padding: 0;
+        background: transparent;
+        border: none;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .creative-col:hover {
+        transform: translateY(-4px);
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .creative-subheading {
+        font-size: clamp(18px, 1.6vw, 32px);
+        font-weight: 600;
+        color:#262626;
+        margin-bottom: 16px;
+      }
+
+      .creative-description {
+        font-weight:300;
+        font-size: 16px;
+        color:#262626;
+      }
+      
+      .case-meta { margin: 0 0 8px 0; color: var(--muted); font-size: 16px; text-align: left;}
      
       .case-discipline { 
         margin: 0; 
@@ -520,8 +599,59 @@
         color: #2b2b2b; 
         letter-spacing: 0.02em;
         line-height: 1.4; 
-        text-align: right;
+        text-align: left;
         max-width: 100%;
+      }
+
+      .testimonials {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        max-width: 80vw;
+      }
+
+      .section-heading {
+        margin: 0 0 20px 0;
+        font-size: clamp(22px, 3vw, 32px);
+        font-weight: 800;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 8px;
+        text-align: center;
+      }
+
+
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+        margin: 0 auto;
+        width: 90%;
+      }
+
+
+      .testimonial-card {
+        padding: 32px;
+        background: transparent;
+        border-radius: 16px;
+        border: none;
+        box-shadow:none;
+      }
+
+
+      .testimonial-text {
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+
+
+      .testimonial-author {
+        font-weight: 600;
+        color: var(--text);
       }
 
       /* Lightbox styles */
@@ -568,6 +698,27 @@
 
       /* Responsive */
       @media (max-width: 760px) {
+
+        .topnav {
+          justify-content: right;
+          gap: 20px;
+        }
+
+        html {
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        main {
+          margin: 0 auto;
+          width: 100%;
+        }
+
+        .container {
+          margin: 0 auto;
+          width: 100%;
+        }
+
         .hero {
           margin-top: 10%;
         }
@@ -610,10 +761,10 @@
 
         .portrait {
           max-width: 80vw;
-          margin: 15% auto 0 auto;
+          margin: 40px auto 0 auto;
           display: block;
           text-align: center;
-          order: -1
+          order: -1;
         }
 
         .portrait-img {
@@ -624,21 +775,31 @@
 
         .headline .name { white-space: normal; }
 
+        .edit-section {
+          margin: 0 auto;
+          width: 100%;
+          justify-content: center;
+        }
+
         .edit-services {
           grid-template-columns: 1fr; /* stack vertically */
           gap: 20px;
+          margin-bottom: 50px;
         }
 
         .four-col-grid {
           grid-template-columns: 1fr;
           gap: 20px; 
           justify-items: center;
+          margin: 0 auto;
+          width: 100%;
         }
 
         .four-col-grid img {
-          max-width: 80%;
+          max-width: 100%;
           grid-template-columns: 1fr;
           justify-items: center;
+          margin: 0 auto;
         }
 
         .four-col-grid a {
@@ -647,58 +808,67 @@
           margin-top: 10px;
         }
 
-        .price-text {
-          width: 100vw; 
+        .price-text .price-description {
+          width: 80vw; 
+          line-height: 1.5;
+          margin: 0;
         }
-      }
 
-      .testimonials {
-        padding: 0 0 40px 0;
-        margin-top: -6vh;
-      }
+        .efa-link {
+          display: inline;
+          line-height: inherit;
+        }
 
-      .section-heading {
-        font-size: clamp(24px, 4vw, 36px);
-        font-size: clamp(22px, 3vw, 32px);
-        font-weight: 800;
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 8px;
-        text-align: left;
-        margin-bottom: 48px;
-      }
+        .case-section {
+          display: block;
+          margin: 0 auto;
+          width: 90vw;
+          align-items: center; 
+        }
 
+        .services-top-row,
+        .services-bottom-row {
+          grid-template-columns: 1fr;
+          gap: 30px;
+          width: 100%;
+        }
 
-      .testimonial-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 32px;
-        max-width: 800px;
-        margin: 0 auto;
-      }
+        .creative-col {
+          text-align: center;
+        }
 
+        .case-section .case-grid {
+          padding-bottom: 0;
+          margin-bottom: 0;
+          justify-items: center;
+          margin: 0 auto;
+        }
 
-      .testimonial-card {
-        padding: 32px;
-        background: transparent;
-        border-radius: 16px;
-        border: none;
-        box-shadow:none;
-      }
+        .case-grid {
+          min-height: 20vh;
+        }
 
+        .testimonials {
+          margin: 0 auto;
+          display: block;
+          width: 90vw;
+        }
 
-      .testimonial-text {
-        font-weight: 300;
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 20px;
-        font-style: italic;
-      }
+        .section-heading {
+          text-align: center;
+          margin-bottom: 40px;
+        }
 
+        .testimonial-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+          width: 100%;
+        }
 
-      .testimonial-author {
-        font-weight: 600;
-        color: var(--text);
+        .testimonial-card {
+          padding: 24px;
+          text-align: center;
+        }
       }
       
     </style>
@@ -721,7 +891,7 @@
         <!-- Headline area -->
         <h1 class="headline">
           <span class="name">Trevor Padoll</span>
-          <span class="lead">is a freelance writer and editor based in Brooklyn <sup>(NY)</sup> specializing in content writing for brands and editing services for everyone else</span>
+          <span class="lead">is a freelance writer and editor based in Brooklyn <sup class="sup-ny geist-mono">(NY)</sup> specializing in content writing for brands and editing services for everyone else</span>
         </h1>
 
         <!-- Services and portrait -->
@@ -730,28 +900,76 @@
             <h3>Services</h3>
             <div class="service-col geist-mono">
               <ul>
+                <li>Newsletters</li>
+                <li>Blog Posts</li>
+                <li>Verbal Brand Identity</li>
+              </ul>
+              <a class="examples-link geist-mono" href="#brand-more">see more</a>
+            </div>
+            <div class="service-col geist-mono">
+              <ul>
                 <li>Manuscripts</li>
                 <li>Dissertations</li>
                 <li>Reports</li>
               </ul>
               <a class="examples-link geist-mono" href="#edit-more">see more</a>
             </div>
-            <div class="service-col geist-mono">
-              <ul>
-                <li>Newsletters</li>
-                <li>Blog Posts</li>
-                <li>Verbal Branding</li>
-              </ul>
-              <a class="examples-link geist-mono" href="#brand-more">see more</a>
-            </div>
           </section>
 
           <aside class="portrait" aria-label="Portrait">
-            <img src="IMG_3172.JPG" alt="Portrait placeholder." class="portrait-img" loading="lazy"/>
+            <img src="img/IMG_3172.JPG" alt="Portrait placeholder." class="portrait-img" loading="lazy"/>
           </aside>
         </div>
         </section>
 
+        <!-- Case study -->
+        <section class="case-section" aria-label="Case Study" id="brand-more">
+          <h3 class="case-heading">Creative Services</h3>
+          <div class="creative-services">
+            <div class="container">
+              <div class="services-top-row">
+                <div class="creative-col">
+                 <p class="creative-subheading">Verbal Identity</p>
+                 <p class="creative-description">crafting distinctive brand voices, tone and style guidlines, and messaging architectures that resonate with target audiences and differentiate brands in their markets.</p>
+                </div>
+                <div class="creative-col">
+                  <p class="creative-subheading">Content Strategy</p>
+                  <p class="creative-description">developing comprehesince content ecosystems, editorial calendars, and distribution plans to maximize impact, engagement, and conversion across channels.</p>
+                </div>
+                <div class="creative-col">
+                  <p class="creative-subheading">Brand Storytelling</p>
+                  <p class="creative-description">transforming brand narratives into compelling stories and content that connect emotionally, build audience loyalty, and create memorable brand experiences.</p>
+                </div>
+              </div>
+              <div class="services-bottom-row">
+                <div class="creative-col">
+                  <p class="creative-subheading">Copywriting & Messaging</p>
+                  <p class="creative-description">creative persuasive, conversion-focused copy for websites, campaigns, and marketing materials that speaks directly to target audiences and resonate emotionally.</p>
+                </div>
+                <div class="creative-col">
+                  <p class="creative-subheading">Editorial Direction</p>
+                  <p class="creative-description">leading content initiatives with strategic oversight — ensuring consistency, quality, and brand alignment across all communication touchpoints.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="case-details">
+            <p class="case-meta geist-mono">Mush Studios, 2020</p>
+            <p class="case-discipline geist-mono">verbal branding identity, product descriptions, brand ethos and mission statement</p>
+          </div>
+          <div class="case-grid">
+            <div class="case-media">
+              <img src="img/verbal-branding-img.png" alt="Project 1" onclick="openLightbox(2)" />
+            </div>
+            <div class="case-media">
+              <img src="img/8f68bf01-aa7b-44ea-ad03-ebd575d17758_rw_1920.png" alt="Project 2" onclick="openLightbox(3)" />
+            </div>
+            <div class="case-media">
+              <img src="img/f5129811-2187-49a2-acf7-552e536880eb_rw_1920.png" alt="Project 3" onclick="openLightbox(4)" />
+            </div>
+          </div>
+          </section>
+          
         <!-- Edit Section-->
         <section class="edit-section" id="edit-more">
           <h3 class="edit-heading">Editing Services</h3>
@@ -773,7 +991,7 @@
           <section class="four-col-grid geist-mono">
             <div class="col-image-col">
               <div class="edit-media geist">
-              <img src="test-doc.png" alt="Placeholder Image 1" class="edit-img" onclick="openLightbox(0)" />
+              <img src="img/test-doc.png" alt="Placeholder Image 1" class="edit-img" onclick="openLightbox(0)" />
               </div>
             </div>
             <div class="col-text-col">
@@ -783,7 +1001,7 @@
 
             <div class="col-image-col">
               <div class="edit-media geist">
-              <img src="test-doc.png" alt="Placeholder Image 2" class="edit-img" onclick="openLightbox(1)" />
+              <img src="img/test-doc.png" alt="Placeholder Image 2" class="edit-img" onclick="openLightbox(1)" />
               </div>
             </div>
             <div class="col-text-col">
@@ -797,27 +1015,6 @@
           </section>
         </section>
 
-
-
-        <!-- Case study -->
-        <section class="case-section" aria-label="Case Study" id="brand-more">
-            <div class="case-details">
-              <h3 class="case-heading">Content &amp; Creative</h3>
-              <p class="case-meta geist-mono">Mush Studios, 2020</p>
-              <p class="case-discipline geist-mono">verbal branding identity, product descriptions, brand ethos and mission statement</p>
-            </div>
-          <div class="case-grid">
-            <div class="case-media">
-              <img src="verbal-branding-img.png" alt="Project 1" onclick="openLightbox(2)" />
-            </div>
-            <div class="case-media">
-              <img src="8f68bf01-aa7b-44ea-ad03-ebd575d17758_rw_1920.png" alt="Project 2" onclick="openLightbox(3)" />
-            </div>
-            <div class="case-media">
-              <img src="f5129811-2187-49a2-acf7-552e536880eb_rw_1920.png" alt="Project 3" onclick="openLightbox(4)" />
-            </div>
-          </div>
-          
           <!--Testimonial section-->
           <section class="testimonials">
             <div class="container">
