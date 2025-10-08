@@ -697,26 +697,16 @@
       .prev:hover, .next:hover {color: #ccc;}
 
       /* Responsive */
-      @media (max-width: 760px) {
+            @media (max-width: 760px) {
 
         .topnav {
           justify-content: right;
           gap: 20px;
         }
 
-        html {
-          margin: 0 auto;
-          width: 100%;
-        }
-
-        main {
-          margin: 0 auto;
-          width: 100%;
-        }
-
         .container {
           margin: 0 auto;
-          width: 100%;
+          width: 80vw;
         }
 
         .hero {
@@ -851,7 +841,14 @@
         .testimonials {
           margin: 0 auto;
           display: block;
-          width: 90vw;
+          width: 80vw;
+          align-items: center;
+          justify-items: center;
+        }
+
+        .testimonials .container {
+          margin: 0 auto;
+          justify-items: center;
         }
 
         .section-heading {
