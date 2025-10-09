@@ -373,7 +373,8 @@
       }
 
       .price-text {
-        margin-top:10vh;
+        margin-top:0;
+        margin-left: 10vw;
         line-height: 1.5;
         grid-column: 1 / -1;
         width: 30vw;
@@ -445,6 +446,16 @@
         margin: 0 0 40px 0;
         max-width: 80vw;
       }
+
+      .case-examples {
+        margin: 0 0 8px 0; 
+        color:#262626; 
+        font-size: 18px; 
+        text-align: left;
+        font-weight: 600;
+      }
+
+
       .case-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -835,7 +846,13 @@
         }
 
         .case-grid {
-          min-height: 20vh;
+          min-height: 18vh;
+        }
+
+        .price-text {
+          display: block;
+          margin-left: 10vw;
+          margin-bottom: 15vh;
         }
 
         .testimonials {
@@ -848,23 +865,27 @@
 
         .testimonials .container {
           margin: 0 auto;
-          justify-items: center;
+          justify-items: left;
         }
 
         .section-heading {
-          text-align: center;
+          justify-items: left;
+          text-align: left;
           margin-bottom: 40px;
+          margin-left: -5vw;
         }
 
         .testimonial-grid {
           grid-template-columns: 1fr;
           gap: 40px;
           width: 100%;
+          margin: 0 auto;
         }
 
         .testimonial-card {
           padding: 24px;
           text-align: center;
+          margin-left: -5vw;
         }
       }
       
@@ -951,6 +972,7 @@
             </div>
           </div>
           <div class="case-details">
+            <p class="case-examples geist-mono">Examples</p>
             <p class="case-meta geist-mono">Mush Studios, 2020</p>
             <p class="case-discipline geist-mono">verbal branding identity, product descriptions, brand ethos and mission statement</p>
           </div>
@@ -1006,10 +1028,10 @@
               <p class="edit-desc2 geist-mono">More placeholder text here. This is the fourth column of the grid.</p>
             </div>
           </section>
+        </section>
             <div class="price-text">
               <p class="price-description geist-mono">I follow the Editorial Freelancers Association rates to determine pricing. You can review them <a class="efa-link geist-mono" href="https://www.the-efa.org/rates/">here</a>.</p>
             </div>
-        </section>
 
           <!--Testimonial section-->
           <section class="testimonials">
