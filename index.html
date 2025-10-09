@@ -136,7 +136,6 @@
         min-height: 100vh;
       }
 
-      .edit-section,
       .case-section,
       .testimonials {
         padding: clamp(60px, 8vw, 120px) 0;
@@ -302,7 +301,7 @@
         gap: clamp(10px, 4vw, 48px);
         align-items: start;
         max-width: 80vw;
-        margin: 0 auto;
+        margin: 40px auto;
       }
 
       .edit-col {
@@ -335,7 +334,7 @@
         max-width: 80vw;
         align-content: start; /* vertically align text and images */
         margin-top: clamp(40px, 5vw, 64px);
-        margin: 60px auto;
+        margin: 60px auto 0 auto;
       }
 
       .four-col-grid .text-col {
@@ -373,7 +372,7 @@
       }
 
       .price-text {
-        margin-top:0;
+        margin-top:-20vh;
         margin-left: 10vw;
         line-height: 1.5;
         grid-column: 1 / -1;
@@ -453,6 +452,11 @@
         font-size: 18px; 
         text-align: left;
         font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .case-examples:hover {
+        transform: translateX(20px);
       }
 
 
@@ -776,6 +780,18 @@
 
         .headline .name { white-space: normal; }
 
+        .creative-services {
+          margin-bottom: 0;
+        }
+
+        .case-details {
+          margin-top: -10vh;
+        }
+
+        .creative-services .container {
+          margin-bottom: 0;
+        }
+
         .edit-section {
           margin: 0 auto;
           width: 100%;
@@ -812,7 +828,7 @@
         .price-text .price-description {
           width: 80vw; 
           line-height: 1.5;
-          margin: 0;
+          margin-top: 30vh;
         }
 
         .efa-link {
@@ -935,7 +951,7 @@
           </section>
 
           <aside class="portrait" aria-label="Portrait">
-            <img src="IMG_3172.JPG" alt="Portrait placeholder." class="portrait-img" loading="lazy"/>
+            <img src="img_3172.JPG" alt="Portrait placeholder." class="portrait-img" loading="lazy"/>
           </aside>
         </div>
         </section>
