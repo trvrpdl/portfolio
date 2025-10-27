@@ -34,7 +34,7 @@
 
       html {
         scroll-behavior: smooth;
-        scroll-padding-top: 40px;
+        scroll-padding-top: 80px;
       }
 
       html, body { height: 100%; }
@@ -226,56 +226,6 @@
         transform: scale(1.02);
       }
 
-      .cube-wrapper {
-        grid-column: 1 / -1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        perspective: 800px;   /* creates 3D depth */
-        margin-top: 40px;
-
-      }
-
-      .cube {
-        position: relative;
-        width: 80px;   /* cube size */
-        height: 80px;
-        transform-style: preserve-3d;
-        animation: spin 6s linear infinite;
-      }
-
-      .cube .face {
-        position: absolute;
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(145deg, rgba(30,30,30,0.7), rgba(0,0,0,0.4));
-        opacity: 0.9;
-        border: 1px solid rgba(255,255,255,0.2);
-        box-shadow: inset 0 0 12px rgba(255,255,255,0.1);
-      }
-
-      .cube .face::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, rgba(255,255,255, 0.25));
-      }
-
-      /* Positioning each face */
-      .cube .front  { transform: rotateY(0deg) translateZ(40px); }
-      .cube .back   { transform: rotateY(180deg) translateZ(40px); }
-      .cube .right  { transform: rotateY(90deg) translateZ(40px); }
-      .cube .left   { transform: rotateY(-90deg) translateZ(40px); }
-      .cube .top    { transform: rotateX(90deg) translateZ(40px); }
-      .cube .bottom { transform: rotateX(-90deg) translateZ(40px); }
-
-/* Spin animation */
-@keyframes spin {
-  0%   { transform: rotateX(0deg) rotateY(0deg); }
-  100% { transform: rotateX(360deg) rotateY(360deg); }
-}
-
-
       /* Editing section */
 
       .edit-section {
@@ -306,6 +256,12 @@
 
       .edit-col {
         text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .edit-col:hover {
+        transform: translateY(-5px);
+        background: none;
       }
 
       .edit-subheading {
@@ -471,6 +427,7 @@
       }
 
       .case-media {
+
         position: relative;
         overflow: hidden;
         border: 1px solid var(--border);
@@ -478,6 +435,15 @@
         overflow: hidden;
         background: #f5f5f5;
   
+      }
+
+      .align-top {
+        align-self: start;
+      }
+
+      .align-top img {
+        vertical-align: top;
+        object-position: top;
       }
 
       .edit-media {
@@ -636,7 +602,15 @@
         text-align: center;
       }
 
-
+      .testimonial-heading {
+        margin: 0 0 20px 0;
+        font-size: clamp(22px, 3vw, 32px);
+        font-weight: 800;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 8px;
+        text-align: left;
+      }
       .testimonial-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -668,6 +642,34 @@
         font-weight: 600;
         color: var(--text);
       }
+
+      .contact-heading {
+        margin: 0 0 20px 0;
+        font-size: clamp(22px, 3vw, 32px);
+        font-weight: 800;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 8px;
+        text-align: left;
+      }
+
+      .contact {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        margin-bottom: 10vh;
+        max-width: 80vw;
+        padding-bottom: 120px;
+      }
+
+      .email-link {
+        display: inline-block;
+        color: var(--muted);
+        text-decoration: underline;
+        font-size: 14px;
+      }
+      .email-link:hover { color: #4a4a4a; }
 
       /* Lightbox styles */
       .lightbox {
@@ -912,9 +914,7 @@
     <header>
       <div class="container">
         <nav class="topnav" aria-label="Primary">
-          <a href="#">About</a>
-          <a href="#">Services</a>
-          <a href="#">Contact</a>
+          <a href="#contact">Contact</a>
         </nav>
       </div>
     </header>
@@ -925,7 +925,7 @@
         <!-- Headline area -->
         <h1 class="headline">
           <span class="name">Trevor Padoll</span>
-          <span class="lead">is a freelance writer and editor based in Brooklyn <sup class="sup-ny geist-mono">(NY)</sup> specializing in content writing for brands and editing services for everyone else</span>
+          <span class="lead">is a freelance writer and editor based in Brooklyn <sup class="sup-ny geist-mono">(NY)</sup> specializing in content writing and creative direction for brands and editing services for everyone else</span>
         </h1>
 
         <!-- Services and portrait -->
@@ -994,13 +994,13 @@
           </div>
           <div class="case-grid">
             <div class="case-media">
-              <img src="verbal-branding-img.png" alt="Project 1" onclick="openLightbox(2)" />
+              <img src="verbal-branding-img.png" alt="Project 1" onclick="openLightbox(0)" />
             </div>
-            <div class="case-media">
-              <img src="8f68bf01-aa7b-44ea-ad03-ebd575d17758_rw_1920.png" alt="Project 2" onclick="openLightbox(3)" />
+            <div class="case-media align-top">
+              <img src="8f68bf01-aa7b-44ea-ad03-ebd575d17758_rw_1920.png" alt="Project 2" onclick="openLightbox(1)" />
             </div>
-            <div class="case-media">
-              <img src="f5129811-2187-49a2-acf7-552e536880eb_rw_1920.png" alt="Project 3" onclick="openLightbox(4)" />
+            <div class="case-media align-top">
+              <img src="f5129811-2187-49a2-acf7-552e536880eb_rw_1920.png" alt="Project 3" onclick="openLightbox(2)" />
             </div>
           </div>
           </section>
@@ -1026,22 +1026,22 @@
           <section class="four-col-grid geist-mono">
             <div class="col-image-col">
               <div class="edit-media geist">
-              <img src="test-doc.png" alt="Placeholder Image 1" class="edit-img" onclick="openLightbox(0)" />
+              <img src="edit-ex-1.png" alt="Copyediting example" class="edit-img" onclick="openLightbox(3)" />
               </div>
             </div>
             <div class="col-text-col">
-              <h3 class="edit-ex-head">Text Block 1</h3>
-              <p class="edit-desc2 geist-mono">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Placeholder text here.</p>
+              <h3 class="edit-ex-head">Academic Copyediting</h3>
+              <p class="edit-desc2 geist-mono">Elevating voice and narrative cohesion, keeping an active tone and ensuring gramatical consistency.</p>
             </div>
 
-            <div class="col-image-col">
+            <!-- <div class="col-image-col">
               <div class="edit-media geist">
-              <img src="test-doc.png" alt="Placeholder Image 2" class="edit-img" onclick="openLightbox(1)" />
+              <img src="test-doc.png" alt="Placeholder Image 2" class="edit-img" onclick="openLightbox(4)" />
               </div>
             </div>
             <div class="col-text-col">
               <h3 class="edit-ex-head">Text Block 2</h3>
-              <p class="edit-desc2 geist-mono">More placeholder text here. This is the fourth column of the grid.</p>
+              <p class="edit-desc2 geist-mono">More placeholder text here. This is the fourth column of the grid.</p> -->
             </div>
           </section>
         </section>
@@ -1052,7 +1052,7 @@
           <!--Testimonial section-->
           <section class="testimonials">
             <div class="container">
-              <h3 class="section-heading">Client Testimonials</h3>
+              <h3 class="testimonial-heading">Client Testimonials</h3>
               <div class="testimonial-grid">
                 <div class="testimonial-card">
                   <p class="testimonial-text"><i>"Trevor's editing transformed my manuscript from good to publication-ready. His attention to detail and stylistic suggestions were invaluable."</i></p>
@@ -1065,6 +1065,17 @@
               </div>
             </div>
           </section>
+
+          <!-- Contact Section -->
+          <section class="contact" id="contact">
+            <div class="container">
+              <h3 class="contact-heading">Contact</h3>
+              <div class="contact-info">
+                <p class="email">Get in touch at <a class="email-link geist-mono" href="mailto:trevorpadoll@gmail.com">trevorpadoll@gmail.com</a></p>
+              </div>
+            </div>
+          </section>
+
           <!-- Lightbox -->
           <div id="lightbox" class="lightbox">
             <span class="close" onclick="closeLightbox()">&times;</span>
@@ -1084,6 +1095,15 @@
       window.onload = () => {
         images = document.querySelectorAll('.case-media img, .four-col-grid img');
       };
+
+      // Enhanced reveal animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.animation = `fadeInUp 0.6s ease-out forwards`;
+        }
+    });
+}, { threshold: 0.1, rootMargin: '-50px' });
 
         // Scroll reveal with Intersection Observer
       document.addEventListener("DOMContentLoaded", () => {
