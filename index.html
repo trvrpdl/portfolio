@@ -585,7 +585,7 @@
       }
 
       .testimonials {
-        display: flex;
+        display: block;
         align-items: center;
         justify-content: center;
         margin: 0 auto;
@@ -663,7 +663,12 @@
         padding-bottom: 120px;
       }
 
+      .contact-info {
+        justify-items: center;
+      }
+
       .email-link {
+        align-items: center;
         display: inline-block;
         color: var(--muted);
         text-decoration: underline;
@@ -1067,14 +1072,16 @@
           </section>
 
           <!-- Contact Section -->
+        <footer>
           <section class="contact" id="contact">
+            <h3 class="contact-heading">Contact</h3>
             <div class="container">
-              <h3 class="contact-heading">Contact</h3>
               <div class="contact-info">
                 <p class="email">Get in touch at <a class="email-link geist-mono" href="mailto:trevorpadoll@gmail.com">trevorpadoll@gmail.com</a></p>
               </div>
             </div>
           </section>
+        </footer>
 
           <!-- Lightbox -->
           <div id="lightbox" class="lightbox">
