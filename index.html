@@ -137,6 +137,8 @@
       }
 
       .case-section,
+      .ebay-section,
+      .photo-section,
       .testimonials {
         padding: clamp(60px, 8vw, 120px) 0;
       }
@@ -389,10 +391,17 @@
         justify-content: center;
       }
       /* Creative section */
-      .case-section { 
-        padding: clamp(24px, 4vw, 56px) 0;
+      .case-section,
+      .ebay-section,
+      .photo-section,
+      .testimonials { 
+        padding: clamp(24px, 4vw, 40px) 0;
         max-width: 90vw;
         margin: 0 auto; 
+      }
+
+      .case-section {
+        margin-bottom: 0;
       }
 
       .case-details {
@@ -423,7 +432,7 @@
         align-items: start;
         margin: 0 auto;
         max-width: 80vw;
-        min-height: 80vh;
+        min-height: 40vh;
       }
 
       .case-media {
@@ -444,6 +453,136 @@
       .align-top img {
         vertical-align: top;
         object-position: top;
+      }
+
+      .ebay-section {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(10px, 2vw, 24px);
+        margin-bottom: 20vh;
+      }
+
+      .ebay-details {
+        margin-bottom: 40px;
+        text-align: right;
+        margin: 0 0 40px 0;
+        max-width: 80vw;
+      }
+
+      .ebay-photo-grid {
+        display: grid;
+        margin: 0 auto;
+        grid-template-columns: 2fr;
+        gap: 10vw;
+        max-width: 1000px;
+        margin-bottom: 40px;
+        padding: 20px clamp(16px, 4vw, 32px);
+        height: auto;
+        width: 60%;
+      }
+
+      .bottom-photo-row {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        max-width: 80vw;
+        margin: 0 auto;
+      }
+
+      .bottom-photo {
+        flex: 0 1 50%;
+        border-radius: 60px;
+        overflow: hidden;
+        margin: 0 auto;
+        justify-items: center;
+        justify-items: center;
+        width: 40%;
+      }
+
+      .bottom-photo img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        object-fit: cover;
+        border-radius: 60px;
+      }
+      
+      .bottom-photos-row {
+        display: flex;
+        grid-template-rows: repeat(1, 2fr);
+        gap: clamp(10px, 2vw, 48px);
+        align-items: start;
+        margin: 0 auto;
+        max-width: 80vw;
+      }
+
+      .photo-section {
+        display: flex; 
+        flex-direction: column;
+        gap: clamp (10px, 2vw, 24px);
+        margin-top: -20vh;
+      }
+
+      .photo-details {
+        margin-bottom: 40px;
+        text-align: right;
+        margin: 0 0 40px 0;
+        max-width: 80vw;
+      }
+
+      .photo-discipline { 
+        margin: 0; 
+        font-size: 14px; 
+        color: #2b2b2b; 
+        letter-spacing: 0.02em;
+        line-height: 1.4; 
+        text-align: left;
+        max-width: 100%;
+      }
+
+      .photo-grid-top-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(10px, 4vw, 48px);
+        align-items: start;
+        margin: 0 auto;
+        max-width: 80vw;
+        min-height: 40vh;
+      }
+
+      .photo-grid-bottom-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(10px, 4vw, 48px);
+        align-items: start;
+        margin: 0 auto;
+        max-width: 80vw;
+        min-height: 40vh;
+        margin-top: 10vh;
+      }
+
+      .top-photo,
+      .bottom-photo,
+      .photo-media {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: 60px;
+        overflow: hidden;
+        background: #f5f5f5;
+      }
+
+      .top-photo img,
+      .bottom-photo img,
+      .photo-media img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 4;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.4s ease;
       }
 
       .edit-media {
@@ -476,12 +615,18 @@
       }
 
       .case-media:hover img,
-      .edit-media:hover img {
+      .top-photo img,
+      .bottom-photo img,
+      .edit-media:hover img,
+      .photo-media:hover img {
         transform: scale(1.05);
       }
 
+      .top-photo::after,
+      .bottom-photo::after,
       .case-media::after,
-      .edit-media::after {
+      .edit-media::after,
+      .photo-media::after {
         content: "View Project";
         position: absolute;
         bottom: 0;
@@ -497,8 +642,11 @@
         transition: all 0.3s ease;
       }
 
+      .top-photo:hover::after,
+      .bottom-photo:hover::after,
       .case-media:hover::after,
-      .edit-media:hover::after {
+      .edit-media:hover::after,
+      .photo-media:hover::after {
         opacity: 1;
         transform: translateY(0);
       }
@@ -584,22 +732,23 @@
         max-width: 100%;
       }
 
+      /* Testimonial Section */
       .testimonials {
         display: block;
         align-items: center;
         justify-content: center;
         margin: 0 auto;
-        max-width: 80vw;
+        max-width: 90vw;
       }
 
       .section-heading {
-        margin: 0 0 20px 0;
         font-size: clamp(22px, 3vw, 32px);
         font-weight: 800;
         text-decoration: underline;
         text-decoration-thickness: 2px;
         text-underline-offset: 8px;
-        text-align: center;
+        text-align: left;
+        justify-content: left;
       }
 
       .testimonial-heading {
@@ -643,6 +792,7 @@
         color: var(--text);
       }
 
+      /* Contact Section */
       .contact-heading {
         margin: 0 0 20px 0;
         font-size: clamp(22px, 3vw, 32px);
@@ -664,7 +814,8 @@
       }
 
       .contact-info {
-        justify-items: center;
+        text-align: center;
+        padding-right: 10vw;
       }
 
       .email-link {
@@ -675,6 +826,38 @@
         font-size: 14px;
       }
       .email-link:hover { color: #4a4a4a; }
+
+
+      /* Up Arrow */
+      #backToTop {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        width: 48px;
+        height: 48px;
+        border: none;
+        border-radius: 50%;
+        background-color: black;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(80px); /* Start slightly below */
+        pointer-events: none;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        z-index: 9999;
+      }
+
+      #backToTop:hover {
+        transform: translateY(-4px); /* Small hover lift */
+      }
+
+      #backToTop.show {
+        opacity: 1;
+        transform: translateY(0); /* Slide up into place */
+        pointer-events: auto;
+      }
 
       /* Lightbox styles */
       .lightbox {
@@ -843,6 +1026,8 @@
           line-height: inherit;
         }
 
+        .photo-section,
+        .ebay-section, 
         .case-section {
           display: block;
           margin: 0 auto;
@@ -936,7 +1121,6 @@
         <!-- Services and portrait -->
         <div class="below-grid spacer-top">
           <section class="services" aria-label="Services">
-            <h3>Services</h3>
             <div class="service-col geist-mono">
               <ul>
                 <li>Newsletters</li>
@@ -956,14 +1140,14 @@
           </section>
 
           <aside class="portrait" aria-label="Portrait">
-            <img src="IMG_3172.JPG" alt="Portrait placeholder." class="portrait-img" loading="lazy"/>
+            <img src="img/IMG_3172.JPG" alt="Portrait placeholder." class="portrait-img" loading="lazy"/>
           </aside>
         </div>
         </section>
 
         <!-- Case study -->
         <section class="case-section" aria-label="Case Study" id="brand-more">
-          <h3 class="case-heading">Creative Services</h3>
+          <h3 class="section-heading">Creative Services</h3>
           <div class="creative-services">
             <div class="container">
               <div class="services-top-row">
@@ -999,20 +1183,69 @@
           </div>
           <div class="case-grid">
             <div class="case-media">
-              <img src="verbal-branding-img.png" alt="Project 1" onclick="openLightbox(0)" />
+              <img src="img/verbal-branding-img.png" alt="Project 1" onclick="openLightbox(0)" />
             </div>
             <div class="case-media align-top">
-              <img src="8f68bf01-aa7b-44ea-ad03-ebd575d17758_rw_1920.png" alt="Project 2" onclick="openLightbox(1)" />
+              <img src="img/8f68bf01-aa7b-44ea-ad03-ebd575d17758_rw_1920.png" alt="Project 2" onclick="openLightbox(1)" />
             </div>
             <div class="case-media align-top">
-              <img src="f5129811-2187-49a2-acf7-552e536880eb_rw_1920.png" alt="Project 3" onclick="openLightbox(2)" />
+              <img src="img/f5129811-2187-49a2-acf7-552e536880eb_rw_1920.png" alt="Project 3" onclick="openLightbox(2)" />
             </div>
           </div>
+        </section>
+
+        <!-- eBay Section -->
+        <section class="ebay-section">
+        <div class="ebay-details">
+          <p class="case-meta geist-mono">eBay, 2023</p>
+          <p class="case-discipline geist-mono">generational and persona research, voice and style guides for Gen Z, messaging analysis and sample copy</p>
+         </div>
+          <section class="ebay-photo-grid">
+          <div class="bottom-photos-row">
+            <div class="bottom-photo">
+              <img src="img/image001-1.png" onclick="openLightbox(3)" />
+            </div>
+            <div class="bottom-photo">
+              <img src="img/image002.png" onclick="openLightbox(3)" />
+            </div>
           </section>
+          </div>
+        </section>
+
           
+          <!-- Office Shoot -->
+        <section class="photo-section">
+          <div class="photo-details">
+          <p class="case-meta geist-mono">Mush Studios, 2021</p>
+          <p class="photo-discipline geist-mono">editorial direction</p>
+          </div>
+          <div class="photo-grid-top-row">
+            <div class="photo-media">
+              <img src="img/Dune 1 copy.jpg" alt="Project 1" onclick="openLightbox(3)" />
+            </div>
+            <div class="photo-media">
+              <img src="img/Dune Closeup copy.jpg" alt="Project 2" onclick="openLightbox(4)" />
+            </div>
+            <div class="photo-media">
+              <img src="img/Oops 1 copy.jpg" alt="Project 3" onclick="openLightbox(5)" />
+            </div>
+          </div>
+          <div class="photo-grid-bottom-row">
+            <div class="photo-media">
+              <img src="img/Oops Closeup copy.jpg" alt="Project 3" onclick="openLightbox(6)" />
+            </div>
+            <div class="photo-media">
+              <img src="img/Valley 1 copy.jpg" alt="Project 3" onclick="openLightbox(7)" />
+            </div>
+            <div class="photo-media">
+              <img src="img/Valley Closeup copy.jpg" alt="Project 3" onclick="openLightbox(8)" />
+            </div>
+          </div>
+        </section>
+
         <!-- Edit Section-->
         <section class="edit-section" id="edit-more">
-          <h3 class="edit-heading">Editing Services</h3>
+          <h3 class="section-heading">Editing Services</h3>
           <div class="edit-services">
             <div class="edit-col">
               <p class="edit-subheading">Copyediting</p>
@@ -1031,7 +1264,7 @@
           <section class="four-col-grid geist-mono">
             <div class="col-image-col">
               <div class="edit-media geist">
-              <img src="edit-ex-1.png" alt="Copyediting example" class="edit-img" onclick="openLightbox(3)" />
+              <img src="img/edit-ex-1.png" alt="Copyediting example" class="edit-img" onclick="openLightbox(9)" />
               </div>
             </div>
             <div class="col-text-col">
@@ -1041,7 +1274,7 @@
 
             <!-- <div class="col-image-col">
               <div class="edit-media geist">
-              <img src="test-doc.png" alt="Placeholder Image 2" class="edit-img" onclick="openLightbox(4)" />
+              <img src="img/test-doc.png" alt="Placeholder Image 2" class="edit-img" onclick="openLightbox(4)" />
               </div>
             </div>
             <div class="col-text-col">
@@ -1057,7 +1290,7 @@
           <!--Testimonial section-->
           <section class="testimonials">
             <div class="container">
-              <h3 class="testimonial-heading">Client Testimonials</h3>
+              <h3 class="section-heading">Client Testimonials</h3>
               <div class="testimonial-grid">
                 <div class="testimonial-card">
                   <p class="testimonial-text"><i>"Trevor's editing transformed my manuscript from good to publication-ready. His attention to detail and stylistic suggestions were invaluable."</i></p>
@@ -1065,7 +1298,7 @@
                 </div>
                 <div class="testimonial-card">
                   <p class="testimonial-text"><i>"The brand voice Trevor developed for our startup perfectly captured our ethos and resonated with our target audience."</i></p>
-                  <p class="testimonial-author geist-mono">— Michael Torres, CEO</p>
+                  <p class="testimonial-author geist-mono">— Jacob Winter, Creative Director</p>
                 </div>
               </div>
             </div>
@@ -1074,13 +1307,17 @@
           <!-- Contact Section -->
         <footer>
           <section class="contact" id="contact">
-            <h3 class="contact-heading">Contact</h3>
+            <h3 class="section-heading">Contact</h3>
             <div class="container">
               <div class="contact-info">
                 <p class="email">Get in touch at <a class="email-link geist-mono" href="mailto:trevorpadoll@gmail.com">trevorpadoll@gmail.com</a></p>
               </div>
             </div>
           </section>
+          <!-- Back to Top Button -->
+          <button id="backToTop" title="Back to top">
+            ↑
+          </button>
         </footer>
 
           <!-- Lightbox -->
@@ -1100,7 +1337,7 @@
       let images; // global
 
       window.onload = () => {
-        images = document.querySelectorAll('.case-media img, .four-col-grid img');
+        images = document.querySelectorAll('.case-media img, .four-col-grid img, .photo-media img');
       };
 
       // Enhanced reveal animations
@@ -1160,6 +1397,22 @@ const observer = new IntersectionObserver((entries) => {
           if (e.key === "ArrowRight") changeSlide(1);
           if (e.key === "Escape") closeLightbox();
         }
+      });
+
+      const backToTopButton = document.getElementById("backToTop");
+
+      // Show/hide button on scroll
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.add("show");
+        } else {
+          backToTopButton.classList.remove("show");
+        }
+      });
+
+      // Smooth scroll to top on click
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     </script>
   </body>
