@@ -693,6 +693,98 @@
         margin: 0 auto 200px auto;
       }
 
+      .photo-carousel {
+        position: relative;
+        max-width: min(1100px, 94vw);
+        margin: 120px auto;
+        perspective: 1400px;
+        padding: 0;
+      }
+
+      .coverflow-track {
+        position: relative;
+        width: 100%;
+        height: clamp(320px, 60vw, 640px);
+        transform-style: preserve-3d;
+      }
+
+      .carousel-slide {
+        --offset: 0;
+        --abs-offset: 0;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: min(90%, 980px);
+        height: 100%;
+        transform-style: preserve-3d;
+        transform: translateX(calc(var(--offset) * 46% - 50%))
+                   rotateY(calc(var(--offset) * -36deg))
+                   translateZ(calc(var(--abs-offset) * -200px))
+                   scale(calc(1 - var(--abs-offset) * 0.08));
+        opacity: 0;
+        filter: blur(2px) saturate(0.8);
+        transition: transform 0.6s ease, opacity 0.6s ease, filter 0.6s ease;
+        pointer-events: none;
+      }
+
+      .carousel-slide.is-active {
+        opacity: 1;
+        filter: none;
+        pointer-events: auto;
+      }
+
+      .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      /* Fade animation */
+      .fade {
+        animation-name: fade;
+        animation-duration: 1.2s;
+      }
+
+      @keyframes fade {
+        from { opacity: 0.4; }
+        to { opacity: 1; }
+      }
+
+      /* Next & previous buttons */
+
+      .photo-carousel .prev,
+      .photo-carousel .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 14px 16px;
+        color: #111;
+        font-weight: 500;
+        font-size: 22px;
+        border-radius: 14px;
+        user-select: none;
+        transform: translateY(-50%);
+        background-color: rgba(255,255,255,0.75);
+        border: 1px solid #e5e5e5;
+        box-shadow: 0 18px 30px rgba(0,0,0,0.1);
+        backdrop-filter: blur(8px);
+        transition: background 0.3s, transform 0.3s;
+      }
+
+      .photo-carousel .prev { left: clamp(-12px, 2vw, 24px); }
+      .photo-carousel .next { right: clamp(-12px, 2vw, 24px); }
+
+      .photo-carousel .prev:hover,
+      .photo-carousel .next:hover {
+        color: #000;
+        background-color: rgba(255,255,255,0.92);
+        transform: translateY(-50%) scale(1.05);
+      }
+
       .creative-col {
         padding: 0;
         background: transparent;
@@ -887,7 +979,7 @@
         user-select: none;
       }
       .lightbox .close:hover { color: #ccc; }
-      .prev, .next {
+      .lightbox .prev, .lightbox .next {
         cursor: pointer;
         position: absolute;
         top: 50%;
@@ -897,9 +989,9 @@
         padding: 12px;
         user-select: none;
       }
-      .prev {left: 30px;}
-      .next {right: 30px;}
-      .prev:hover, .next:hover {color: #ccc;}
+      .lightbox .prev {left: 30px;}
+      .lightbox .next {right: 30px;}
+      .lightbox .prev:hover, .lightbox .next:hover {color: #ccc;}
 
       /* Responsive */
       @media (max-width: 760px) {
@@ -1019,6 +1111,29 @@
           width: 80vw; 
           line-height: 1.5;
           margin-top: 30vh;
+        }
+
+        .photo-carousel {
+          margin: 80px auto 60px;
+          perspective: 1100px;
+        }
+
+        .coverflow-track {
+          height: clamp(240px, 68vw, 520px);
+        }
+
+        .carousel-slide {
+          width: 94%;
+          transform: translateX(calc(var(--offset) * 60% - 50%))
+                     rotateY(calc(var(--offset) * -28deg))
+                     translateZ(calc(var(--abs-offset) * -140px))
+                     scale(calc(1 - var(--abs-offset) * 0.06));
+        }
+
+        .photo-carousel .prev,
+        .photo-carousel .next {
+          padding: 12px 14px;
+          top: 50%;
         }
 
         .efa-link {
@@ -1176,6 +1291,77 @@
               </div>
             </div>
           </div>
+          <div class="carousel-details">
+            <p class="case-examples geist-mono">Conceptual Work</p>
+            <p class="case-meta geist-mono">BEND Furnishings</p>
+            <p class="case-discipline geist-mono">concept, strategy, creative direction</p>
+          </div>
+          <section class="photo-carousel" aria-label="Coverflow carousel of BEND Furnishings work">
+            <div class="coverflow-track">
+              <div class="carousel-slide is-active">
+                <img src="BEND Case Study.001.jpeg" alt="BEND Furnishings concept slide 1">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.002.jpeg" alt="BEND Furnishings concept slide 2">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.003.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.004.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.005.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.006.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.007.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+               <div class="carousel-slide">
+                <img src="BEND Case Study.008.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.009.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+                <div class="carousel-slide">
+                <img src="BEND Case Study.010.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.011.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.012.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.013.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.014.jpeg">
+            </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.015.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="/BEND Case Study.016.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.017.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.018.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.019.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="BEND Case Study.020.jpeg" alt="BEND Furnishings concept slide 3">
+              </div>
+            <button class="prev" type="button" aria-label="Previous slide">&#10094;</button>
+            <button class="next" type="button" aria-label="Next slide">&#10095;</button>
+          </section>
+
           <div class="case-details">
             <p class="case-examples geist-mono">Client Work</p>
             <p class="case-meta geist-mono">Mush Studios, 2020</p>
@@ -1289,18 +1475,16 @@
 
           <!--Testimonial section-->
           <section class="testimonials">
-            <div class="container">
-              <h3 class="section-heading">Client Testimonials</h3>
+              <h3 class="testimonial-heading">Client Testimonials</h3>
               <div class="testimonial-grid">
                 <div class="testimonial-card">
                   <p class="testimonial-text"><i>"Trevor's editing transformed my manuscript from good to publication-ready. His attention to detail and stylistic suggestions were invaluable."</i></p>
                   <p class="testimonial-author geist-mono">— Sarah Chen, Author</p>
                 </div>
                 <div class="testimonial-card">
-                  <p class="testimonial-text"><i>"The brand voice Trevor developed for our startup perfectly captured our ethos and resonated with our target audience."</i></p>
+                  <p class="testimonial-text"><i>"The brand voice Trevor helped develop for our startup perfectly captured our ethos and resonated with our target audience."</i></p>
                   <p class="testimonial-author geist-mono">— Jacob Winter, Creative Director</p>
                 </div>
-              </div>
             </div>
           </section>
 
@@ -1323,9 +1507,9 @@
           <!-- Lightbox -->
           <div id="lightbox" class="lightbox">
             <span class="close" onclick="closeLightbox()">&times;</span>
-            <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+            <span class="prev" onclick="navigateLightbox(-1)">&#10094;</span>
             <img id="lightbox-img" src="" alt="Full-size image" />
-            <span class="next" onclick="changeSlide(1)">&#10095;</span>
+            <span class="next" onclick="navigateLightbox(1)">&#10095;</span>
           </div>
         </section>
 
@@ -1378,7 +1562,7 @@ const observer = new IntersectionObserver((entries) => {
         document.getElementById("lightbox").style.display = "none";
       }
 
-      function changeSlide(direction) {
+      function navigateLightbox(direction) {
         currentIndex += direction;
         if (currentIndex < 0) currentIndex = images.length - 1;
         if (currentIndex >= images.length) currentIndex = 0;
@@ -1393,8 +1577,8 @@ const observer = new IntersectionObserver((entries) => {
       // Keyboard navigation
       document.addEventListener("keydown", (e) => {
         if (document.getElementById("lightbox").style.display === "flex") {
-          if (e.key === "ArrowLeft") changeSlide(-1);
-          if (e.key === "ArrowRight") changeSlide(1);
+          if (e.key === "ArrowLeft") navigateLightbox(-1);
+          if (e.key === "ArrowRight") navigateLightbox(1);
           if (e.key === "Escape") closeLightbox();
         }
       });
@@ -1414,6 +1598,49 @@ const observer = new IntersectionObserver((entries) => {
       backToTopButton.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
+
+      // Coverflow carousel
+      const coverflowSlides = Array.from(document.querySelectorAll('.photo-carousel .carousel-slide'));
+      let coverflowIndex = 0;
+      let coverflowTimer;
+      const coverflowPrev = document.querySelector('.photo-carousel .prev');
+      const coverflowNext = document.querySelector('.photo-carousel .next');
+      const coverflowWrapper = document.querySelector('.photo-carousel');
+
+      function renderCoverflow() {
+        coverflowSlides.forEach((slide, idx) => {
+          const offset = idx - coverflowIndex;
+          const absOffset = Math.abs(offset);
+          slide.style.setProperty('--offset', offset);
+          slide.style.setProperty('--abs-offset', absOffset);
+          slide.style.zIndex = coverflowSlides.length - absOffset;
+          slide.classList.toggle('is-active', idx === coverflowIndex);
+        });
+      }
+
+      function shiftCoverflow(step) {
+        if (!coverflowSlides.length) return;
+        coverflowIndex = (coverflowIndex + step + coverflowSlides.length) % coverflowSlides.length;
+        renderCoverflow();
+        restartCoverflowTimer();
+      }
+
+      function restartCoverflowTimer() {
+        clearInterval(coverflowTimer);
+        coverflowTimer = setInterval(() => shiftCoverflow(1), 4200);
+      }
+
+      function initCoverflow() {
+        if (!coverflowSlides.length) return;
+        renderCoverflow();
+        restartCoverflowTimer();
+        coverflowPrev?.addEventListener('click', () => shiftCoverflow(-1));
+        coverflowNext?.addEventListener('click', () => shiftCoverflow(1));
+        coverflowWrapper?.addEventListener('mouseenter', () => clearInterval(coverflowTimer));
+        coverflowWrapper?.addEventListener('mouseleave', restartCoverflowTimer);
+      }
+
+      initCoverflow();
     </script>
   </body>
 </html>
