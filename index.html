@@ -35,6 +35,7 @@
       html {
         scroll-behavior: smooth;
         scroll-padding-top: 80px;
+        overflow-x: hidden;
       }
 
       html, body { height: 100%; }
@@ -86,6 +87,10 @@
       header {
         padding-top: clamp(20px, 6vw, 40px);
         padding-bottom: clamp(8px, 1.5vw, 16px);
+      }
+      /* Prevent horizontal overflow on small screens */
+      * {
+        box-sizing: border-box;
       }
       .topnav {
         display: flex;
@@ -330,8 +335,8 @@
       }
 
       .price-text {
-        margin-top:-20vh;
-        margin-left: 10vw;
+        margin-top: 5vh;
+        margin-left: 5vw;
         line-height: 1.5;
         grid-column: 1 / -1;
         width: 30vw;
@@ -342,7 +347,7 @@
 
       .price-descritpion {
         line-height: 1.5;
-        margin: 0;
+        margin: 20px 0;
         padding: 0;
         text-align: left;
       }
@@ -407,7 +412,7 @@
       .case-details {
         margin-bottom: 40px;
         text-align: right;
-        margin: 0 0 40px 0;
+        margin: 0 0 72px 0;
         max-width: 80vw;
       }
 
@@ -544,22 +549,22 @@
       .photo-grid-top-row {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: clamp(10px, 4vw, 48px);
+        gap: clamp(12px, 2vw, 24px);
         align-items: start;
         margin: 0 auto;
         max-width: 80vw;
-        min-height: 40vh;
+        min-height: 0;
       }
 
       .photo-grid-bottom-row {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: clamp(10px, 4vw, 48px);
+        gap: clamp(12px, 2vw, 24px);
         align-items: start;
         margin: 0 auto;
         max-width: 80vw;
-        min-height: 40vh;
-        margin-top: 10vh;
+        min-height: 0vh;
+        margin-top: 16px;
       }
 
       .top-photo,
@@ -690,15 +695,16 @@
         gap: 40px;
         width: 66.666%;
         justify-content: center;
-        margin: 0 auto 200px auto;
+        margin: 0 auto 80px auto;
       }
 
       .photo-carousel {
         position: relative;
         max-width: min(1100px, 94vw);
-        margin: 120px auto;
+        margin: 8px auto 140px;
         perspective: 1400px;
         padding: 0;
+        overflow: hidden;
       }
 
       .coverflow-track {
@@ -706,6 +712,7 @@
         width: 100%;
         height: clamp(320px, 60vw, 640px);
         transform-style: preserve-3d;
+        z-index: 1;
       }
 
       .carousel-slide {
@@ -773,6 +780,10 @@
         box-shadow: 0 18px 30px rgba(0,0,0,0.1);
         backdrop-filter: blur(8px);
         transition: background 0.3s, transform 0.3s;
+        z-index: 50;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
       }
 
       .photo-carousel .prev { left: clamp(-12px, 2vw, 24px); }
@@ -812,7 +823,11 @@
         color:#262626;
       }
       
-      .case-meta { margin: 0 0 8px 0; color: var(--muted); font-size: 16px; text-align: left;}
+      .case-meta { 
+        margin: 0 0 8px 0; 
+        color: var(--muted); 
+        font-size: 16px; 
+        text-align: left;}
      
       .case-discipline { 
         margin: 0; 
@@ -882,6 +897,54 @@
       .testimonial-author {
         font-weight: 600;
         color: var(--text);
+      }
+
+      .films {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 12px 0;
+        margin-left: 5vw;
+      }
+
+      .films .section-heading {
+        align-self: flex-start;
+        text-align: left;
+        margin: 0 0 12px 0;
+      }
+
+      .films .case-meta,
+      .films .photo-discipline {
+        align-self: flex-start;
+        text-align: left;
+        margin: 0;
+      }
+
+      .films .case-meta {
+        margin-bottom: 4px;
+      }
+
+      .films .photo-discipline {
+        margin-bottom: 12px;
+      }
+
+      .video-container {
+        position: relative;
+        align-self: center;
+        width: min(900px, 90vw);
+        padding-top: 56.25%; /* 16:9 ratio */
+        margin-top: 4px;
+      }
+
+      .video-container iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+        margin: 0 auto;
       }
 
       /* Contact Section */
@@ -1009,7 +1072,8 @@
 
         .container {
           margin: 0 auto;
-          width: 80vw;
+          width: 100%;
+          padding-inline: clamp(16px, 5vw, 24px);
         }
 
         .hero {
@@ -1073,7 +1137,8 @@
         }
 
         .case-details {
-          margin-top: -10vh;
+          margin-top: 0;
+          margin-bottom: 80px;
         }
 
         .creative-services .container {
@@ -1120,7 +1185,7 @@
         }
 
         .photo-carousel {
-          margin: 80px auto 60px;
+          margin: 0 auto 160px;
           perspective: 1100px;
         }
 
@@ -1140,6 +1205,11 @@
         .photo-carousel .next {
           padding: 12px 14px;
           top: 50%;
+          opacity: 1;
+          visibility: visible;
+          z-index: 60;
+          pointer-events: auto;
+          background-color: rgba(255,255,255,0.95);
         }
 
         .efa-link {
@@ -1154,6 +1224,23 @@
           margin: 0 auto;
           width: 90vw;
           align-items: center; 
+        }
+
+        .photo-grid-top-row,
+        .photo-grid-bottom-row {
+          gap: clamp(12px, 2vw, 20px);
+          margin-bottom: 0;
+        }
+
+        .photo-grid-bottom-row {
+          margin-top: 0;
+        }
+
+        .contact {
+          margin: 0 auto;
+          width: 100%;
+          padding-inline: clamp(16px, 5vw, 24px);
+          max-width: 100%;
         }
 
         .services-top-row,
@@ -1178,6 +1265,7 @@
           min-height: 18vh;
         }
 
+
         .price-text {
           display: block;
           margin-left: 10vw;
@@ -1198,10 +1286,9 @@
         }
 
         .section-heading {
-          justify-items: left;
-          text-align: left;
+          justify-items: center;
+          text-align: center;
           margin-bottom: 40px;
-          margin-left: -5vw;
         }
 
         .testimonial-grid {
@@ -1215,6 +1302,13 @@
           padding: 24px;
           text-align: center;
           margin-left: -5vw;
+        }
+
+        .contact {
+          margin: 0 auto;
+          display: block;
+          width: 80 vw;
+          align-items: center;
         }
       }
       
@@ -1494,6 +1588,20 @@
             </div>
           </section>
 
+          <!-- Film Section -->
+          <section class="films">
+            <h3 class="section-heading">Filmmaking</h3>
+            <p class="case-meta geist-mono">Girl Car</p>
+            <p class="photo-discipline geist-mono">writer & director</p>
+            <div class="video-container">
+             <iframe title="vimeo-player" src="https://player.vimeo.com/video/1047127349?h=140e59ce6a" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe>
+            </div>
+            <p class="case-meta geist-mono">Pretend I'm Dead</p>
+            <p class="photo-discipline geist-mono">director</p>
+            <div class="video-container">
+              <iframe width="640" height="360" src="https://www.youtube.com/embed/-LjiUqyOgBM?si=wsuMX-cPBef6YNoS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+           </section>
           <!-- Contact Section -->
 
           <section class="contact" id="contact">
